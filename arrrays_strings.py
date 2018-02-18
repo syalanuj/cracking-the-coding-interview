@@ -85,7 +85,6 @@ print("URLify: ", urlify("     Mr        Smith       "))
 #1.5 One Away: There are three type of edits: insert a character; remove a char;
 # or replace a character. Check if the strings are zero or one edit away
 # Solution 1
-
 def oneAway(text1,text2):
     """ One Away json using python ds
         Complexity - O(n) split iterates over all the characters
@@ -138,3 +137,97 @@ def checkOneRemove(text1,text2):
 
 #Test case
 print("One Away", oneAway("pale","bake"))
+
+#-----------------------------------------------------------------------------#
+#1.6 String Compression: Basic string Compression using counts of repeated characters
+# Example 'aabcccccaaa' to 'a2b1c5a3'
+# My Solution
+import copy
+def stringCompression(text):
+    """ Complexity O(n) - Travesing over the loop
+        better to join string from list instead of conactenation
+    """
+    repeat_count = 1
+    compressed_text_list = []
+    prev_c = ""
+    text += ";"
+    for c in text:
+        if(c == prev_c):
+            repeat_count += 1
+        elif(c != prev_c and prev_c != ""):
+            compressed_text_list.append(prev_c + str(repeat_count))
+            repeat_count = 1
+        prev_c = copy.deepcopy(c)
+
+    compressed_text = "".join(compressed_text_list)
+    if(len(compressed_text) >= len(text)):
+        compressed_text = text[:-1]
+
+    return compressed_text
+
+print("String Compression ", stringCompression("aabcccccaaa"))
+
+#-----------------------------------------------------------------------------#
+#1.7 Rotate matrix: Given an image represented by an NxN matrix, where each pixel
+# in the image is 4 bytes, write a method to rotate matrix by 90 degrees
+# My Solution
+
+def rotateMatrix(m):
+    rotated_m = [[m[len(m[i]) -1 - j][i] for j in range(len(m[i]))] for i in range(len(m))]
+    for row in rotated_m:
+        print(row)
+
+print("Rotated matrix \n ", rotateMatrix([[1,2,3],[4,5,6],[7,8,9]]))
+
+
+#-----------------------------------------------------------------------------#
+#1.8 ZERO matrix: Write an algorithm such that if an element in an MxN matrix is 0
+# its entire row and column are set to 0
+#Solution
+def nullifyRow(mat,row):
+    for j in range(len(mat[0])):
+        mat[row][j] = 0
+
+def nullifyCol(mat,col):
+    for i in range(len(mat)):
+        mat[i][col] = 0
+
+def zeroMatrix(mat):
+    #Row and col to mantain 0s
+    row = [False] * len(mat)
+    col = [False] * len(mat[0])
+    for i in range(len(mat)):
+        for j in range(len(mat[0])):
+            if(mat[i][j] == 0):
+                row[i] = True
+                col[j] = True
+    for i in range(len(row)):
+        if(row[i]):
+            nullifyRow(mat,i)
+    for j in range(len(col)):
+        if(col[j]):
+            nullifyCol(mat,j)
+    return mat
+
+#Zero matrix test
+print("Zero Matrix: ", zeroMatrix([[1,2,3,0],[4,0,6,7],[7,8,9,8]]))
+
+#-----------------------------------------------------------------------------#
+#1.9 String Rotation: Assume you have mathod isSubstring which checks one is sub strings
+#of the other, write a code to check if s2 is rotation of s1 using only one call
+#to isSubstring
+#Solution
+
+def isSubstring(s1,s2):
+    if s2 in s1:
+        return True
+    return False
+
+def isStringRotation(s1,s2):
+    #check equal length and non empty
+    if(len(s1) == len(s2) and len(s1) > 0):
+        s1s1 = s1 + s1
+        return isSubstring(s1s1,s2)
+    return False
+
+print("String Rotation: ", isStringRotation("waterbottle","erbottlewat"))
