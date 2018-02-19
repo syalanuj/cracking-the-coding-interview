@@ -21,3 +21,17 @@ class Node(object):
         return self.next
     def hasNext(self):
         return self.next != None
+
+#1 Traversing a linked list
+def traverseList(head):
+    """Traversing a linked list from head and return count
+        Time Complexity O(n) - traversing the whole list
+        Space Complexity O(1) - single temp variable current
+     """
+    current = head
+    count = 0 #count total nodes
+    while(current != None):
+        print(current.data)
+        count += 1
+        current = current.getNext()
+    return count
