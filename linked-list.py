@@ -32,9 +32,12 @@ class LinkedList(object):
             Space Complexity O(1) - single temp variable current
          """
         current = head
+        print("HEAD --> ")
         while(current != None):
             print(current.data)
+            print(" --> ")
             current = current.getNext()
+        print("NULL")
     def length(self):
         current = self.head
         count = 0 #count total nodes
@@ -106,3 +109,39 @@ class LinkedList(object):
                         curr_node = curr_node.getNext()
 
                 print("Value is not present")
+#-----------------------------------------------------------------------------#
+# 2.1 Remove dups: Write code to remove duplicates from unsorted linked list
+# FOLLOW UP: How would you solve if temprory buffer not available
+# Solution 1
+    def removeDups(self):
+        """ Remove duplicates from unsorted linked list using dictionary
+            Time Complexity - O(n)
+            Space Complexit - O(n) -n number of distinct values stored in dict
+        """
+        data_dict = {}
+        prev_node = self.head
+        curr_node = self.head
+        while(curr_node.getNext() != None):
+            if(data_dict[curr_node.getData()] == True):
+                #remove using pointers
+                prev_node.setNext(curr_node.getNext())
+            else:
+                data_dict[curr_node.getData()] = True
+            prev_node = curr_node
+            curr_node = curr_node.getNext()
+# Solution 2
+    def removeDups2(self):
+        """ Remove duplicates from unsorted linked list without using dict
+            Time Complexity - O(n2)
+            Space Complexit - O(1)
+        """
+        temp_node = self.head
+        prev_node = self.head
+        while(temp_node.getNext() != None):
+            curr_node = temp_node.getNext()
+            while(curr_node.getNext() != None):
+                if(temp_node.getData() == curr_node.getData()):
+                    prev_node.setNext(curr_node.getNext())
+                prev_node = curr_node
+                curr_node = curr_node.getNext()
+            temp_node = temp_node.getNext()
