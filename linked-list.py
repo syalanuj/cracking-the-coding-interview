@@ -78,37 +78,35 @@ class LinkedList(object):
 
             newNode.setNext(current.getNext)
             current.setNext(newNode)
-        def deleteAtBegining(self):
-            if(self.length() == 0):
-                print("Empty List")
-            else:
-                self.head = self.head.getNext()
-
-        def deleteAtEnd(self):
-            if(self.length() == 0):
-                print("Empty List")
-            else:
-                prev_node = self.head
-                curr_node = self.head
-                while(curr_node.getNext() != None):
+    def deleteAtBegining(self):
+        if(self.length() == 0):
+            print("Empty List")
+        else:
+            self.head = self.head.getNext()
+    def deleteAtEnd(self):
+        if(self.length() == 0):
+            print("Empty List")
+        else:
+            prev_node = self.head
+            curr_node = self.head
+            while(curr_node.getNext() != None):
+                prev_node = curr_node
+                curr_node = curr_node.getNext()
+            prev_node.setNext(None)
+    def deleteValue(self,value):
+        if(self.length() == 0):
+            print("Empty List")
+        else:
+            prev_node = self.head
+            curr_node = self.head
+            while(curr_node.getNext() != None and curr_node.getData() != value):
+                if(curr_node.getData() == value):
+                    prev_node.getNext() = curr_node.getNext()
+                else:
                     prev_node = curr_node
                     curr_node = curr_node.getNext()
-                prev_node.setNext(None)
 
-        def deleteValue(self,value):
-            if(self.length() == 0):
-                print("Empty List")
-            else:
-                prev_node = self.head
-                curr_node = self.head
-                while(curr_node.getNext() != None and curr_node.getData() != value):
-                    if(curr_node.getData() == value):
-                        prev_node.getNext() = curr_node.getNext()
-                    else:
-                        prev_node = curr_node
-                        curr_node = curr_node.getNext()
-
-                print("Value is not present")
+            print("Value is not present")
 #-----------------------------------------------------------------------------#
 # 2.1 Remove dups: Write code to remove duplicates from unsorted linked list
 # FOLLOW UP: How would you solve if temprory buffer not available
@@ -167,3 +165,11 @@ class LinkedList(object):
         if(index == k):
             print("kth to last element", node.getData())
         return index
+#-----------------------------------------------------------------------------#
+# 2.3 Delete middle node: Implement an algo to delete node in middle of singly
+# linked list, not given the HEAD
+# Solution 1
+    def deleteAtNode(self,node):
+        next_node = node.getNext()
+        node.setData(next_node.getData())
+        node.setNext(next_node.getNext())
