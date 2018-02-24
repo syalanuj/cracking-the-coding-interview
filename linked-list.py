@@ -145,3 +145,25 @@ class LinkedList(object):
                 prev_node = curr_node
                 curr_node = curr_node.getNext()
             temp_node = temp_node.getNext()
+#-----------------------------------------------------------------------------#
+# 2.2 Return Kth to last: Implement an algo to find the kth to last element o a
+# linked list
+# Solution 1
+    def kthToLast(self,k):
+        """ Find kth of Last element
+            Time Complexity - O(n) where n is length of linked list
+        """
+        curr_node = self.head
+        count = 0
+        while(count < self.length() - k):
+            count += 1
+            curr_node = curr_node = getNext()
+        return curr_node # or curr_node.getData()
+#Solution2 - Implement with recursion
+    def kthToLast2(self,node,k):
+        if(node == None):
+            return 0
+        index = kthToLast2(node.getNext(),k) + 1
+        if(index == k):
+            print("kth to last element", node.getData())
+        return index
